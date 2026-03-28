@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Forcepoint VPN CLI
+Exec=_forcepoint-client
+Type=Application
+Terminal=true
+Categories=Network;
+Icon=forcepoint

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+HERE="$(dirname "$(readlink -f "$0")")"
+
+CUSTOM_LIBRARY="$HERE/usr/lib/forcepoint-client"
+BIN="$HERE/usr/bin/_forcepoint-client"
+
+CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/forcepoint/fp.conf"
+[ -f "$CONFIG_FILE" ] && source "$CONFIG_FILE"
+
+COMMAND="LD_LIBRARY_PATH=$CUSTOM_LIBRARY $BIN"
+
+# pass arguments directly (manual mode)
+if [[ -n "$*" ]]; then
+    COMMAND+=" $*"
+    echo "$COMMAND"
+    exec sudo -E bash -c "$COMMAND"
+fi
+
+# automatic mode
+[[ -n "$VPN_GATEWAY" ]] && COMMAND+=" $VPN_GATEWAY"
+[[ -n "$USERNAME" ]] && COMMAND+=" -u $USERNAME"
+
+if [[ -n "$PASSCMD" ]]; then
+    COMMAND+=" -P '$PASSCMD'"
+elif [[ -n "$PASSWORD" ]]; then
+    COMMAND+=" -a $PASSWORD"
+fi
+
+echo "$COMMAND"
+exec sudo -E bash -c "$COMMAND"
