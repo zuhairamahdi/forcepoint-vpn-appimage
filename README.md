@@ -23,13 +23,20 @@ It bundles all required libraries (`libevent`, `OpenSSL 1.1`, etc.) and works on
 Go to the [Releases](https://github.com/zuhairamahdi/forcepoint-vpn-appimage/releases) tab and download the latest:
 
 ```bash
-Forcepoint_VPN_CLI-x86_64.AppImage
+Forcepoint_VPN_CLI-x86_64-1.0.1.AppImage
 ```
+Or you can use this command in your teminal
 
+```bash
+
+curl -L https://github.com/zuhairamahdi/forcepoint-vpn-appimage/releases/download/1.0.1/Forcepoint_VPN_CLI-x86_64-1.0.1.AppImage -o forcepoint
+chmod +x forcepoint
+./forcepoint
+```
 ### Make it executable
 
 ```bash
-chmod +x Forcepoint_VPN_CLI-x86_64.AppImage
+chmod +x Forcepoint_VPN_CLI-x86_64-1.0.1.AppImage
 ```
 
 ### Run the VPN
@@ -37,13 +44,13 @@ chmod +x Forcepoint_VPN_CLI-x86_64.AppImage
 **Manual mode (specify gateway and username):**
 
 ```bash
-./Forcepoint_VPN_CLI-x86_64.AppImage <VPN_GATEWAY> -u <USERNAME>
+./Forcepoint_VPN_CLI-x86_64-1.0.1.AppImage <VPN_GATEWAY> -u <USERNAME>
 ```
 
 Example:
 
 ```bash
-./Forcepoint_VPN_CLI-x86_64.AppImage myhost.com -u your.username@company.com
+./Forcepoint_VPN_CLI-x86_64-1.0.1.AppImage myhost.com -u your.username@company.com
 ```
 
 **Automatic mode (read from config):**
@@ -61,7 +68,7 @@ CONFIG=""
 Then run:
 
 ```bash
-./Forcepoint_VPN_CLI-x86_64.AppImage
+./Forcepoint_VPN_CLI-x86_64-1.0.1.AppImage
 ```
 
 ---
@@ -74,7 +81,7 @@ You can make it easier to run the VPN by creating shell aliases:
 
 ```bash
 # Add to ~/.bashrc or ~/.zshrc
-alias forcepointvpn='~/path/to/Forcepoint_VPN_CLI-x86_64.AppImage'
+alias forcepointvpn='~/path/to/Forcepoint_VPN_CLI-x86_64-1.0.1.AppImage'
 ```
 
 Then reload your shell:
@@ -87,7 +94,7 @@ source ~/.bashrc   # or source ~/.zshrc
 
 ```fish
 # Add to ~/.config/fish/config.fish
-alias forcepointvpn '~/path/to/Forcepoint_VPN_CLI-x86_64.AppImage'
+alias forcepointvpn '~/path/to/Forcepoint_VPN_CLI-x86_64-1.0.1.AppImage'
 ```
 
 Reload fish configuration:
@@ -132,8 +139,7 @@ This will generate a new `Forcepoint_VPN_CLI-x86_64.AppImage`.
 The Forcepoint VPN client is **proprietary software**. This repository only contains a wrapper and packaging scripts.
 All rights for the VPN client itself remain with **Forcepoint**.
 
----
-
+v
 ## Acknowledgements
 
 * [AppImage](https://appimage.org/) for the packaging framework
