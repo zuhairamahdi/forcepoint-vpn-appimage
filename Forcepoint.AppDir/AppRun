@@ -1,31 +1,26 @@
 #!/usr/bin/env bash
+set -e
+
+# Fix noexec mounts
+if [[ -z "${APPIMAGE_EXTRACT_AND_RUN:-}" ]]; then
+    export APPIMAGE_EXTRACT_AND_RUN=1
+    exec "$APPIMAGE" "$@"
+fi
 
 HERE="$(dirname "$(readlink -f "$0")")"
 
 CUSTOM_LIBRARY="$HERE/usr/lib/forcepoint-client"
 BIN="$HERE/usr/bin/_forcepoint-client"
 
+# Load config safely
 CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/forcepoint/fp.conf"
-[ -f "$CONFIG_FILE" ] && source "$CONFIG_FILE"
-
-COMMAND="LD_LIBRARY_PATH=$CUSTOM_LIBRARY $BIN"
-
-# pass arguments directly (manual mode)
-if [[ -n "$*" ]]; then
-    COMMAND+=" $*"
-    echo "$COMMAND"
-    exec sudo -E bash -c "$COMMAND"
+if [[ -f "$CONFIG_FILE" ]]; then
+    set +u
+    source "$CONFIG_FILE"
+    set -u
 fi
 
-# automatic mode
-[[ -n "$VPN_GATEWAY" ]] && COMMAND+=" $VPN_GATEWAY"
-[[ -n "$USERNAME" ]] && COMMAND+=" -u $USERNAME"
+echo "Running Forcepoint VPN..."
 
-if [[ -n "$PASSCMD" ]]; then
-    COMMAND+=" -P '$PASSCMD'"
-elif [[ -n "$PASSWORD" ]]; then
-    COMMAND+=" -a $PASSWORD"
-fi
-
-echo "$COMMAND"
-exec sudo -E bash -c "$COMMAND"
+# 🔥 CRITICAL: pass LD_LIBRARY_PATH inside sudo
+exec sudo LD_LIBRARY_PATH="$CUSTOM_LIBRARY" "$BIN" "$@"
