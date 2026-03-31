@@ -21,6 +21,4 @@ if [[ -f "$CONFIG_FILE" ]]; then
 fi
 
 echo "Running Forcepoint VPN..."
-
-# 🔥 CRITICAL: pass LD_LIBRARY_PATH inside sudo
 exec sudo LD_LIBRARY_PATH="$CUSTOM_LIBRARY" "$BIN" "$@"
