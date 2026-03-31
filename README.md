@@ -117,7 +117,7 @@ forcepointvpn <VPN_GATEWAY> -u <USERNAME>
 To rebuild the AppImage:
 
 ```bash
-git clone https://github.com/<your-username>/forcepoint-vpn-appimage.git
+git clone https://github.com/zuhairamahdi/forcepoint-vpn-appimage.git
 cd forcepoint-vpn-appimage
 chmod +x build.sh
 ./build.sh
